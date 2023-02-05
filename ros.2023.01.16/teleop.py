@@ -7,8 +7,8 @@ import termios
 from geometry_msgs.msg import Twist
 from std_msgs.msg import String
 #import sys, select, os
-velocity = 0.0
-steering = 0.0
+velocity =0
+steering = 0
 breakcontrol = 1
 gear = 0
 MAX_Velocity = 125
@@ -35,22 +35,22 @@ def teleop():
     while not rospy.is_shutdown():
         key = getkey()
         if key == 'w':
-            velocity = velocity + 5.0
-            steering = 0.0
+            velocity = velocity + 5
+            steering = 0
             status = status + 1
         elif key == 's':
-            velocity = 0.0
+            velocity = 0
             #steering = 0
             status = status + 1
         elif key == 'a':
-            steering = steering + 2.0
+            steering = steering + 2
             status = status + 1
         elif key == 'd':
-            steering = steering - 2.0
+            steering = steering - 2
             status = status + 1
         elif key == 'x':
-            velocity = velocity - 5.0
-            steering = 0.0
+            velocity = velocity - 5
+            steering = 0
             status = status + 1
         else:
             if (key == '\x03'):
@@ -62,8 +62,8 @@ def teleop():
         if velocity <= -MAX_Velocity:
             velocity = -MAX_Velocity
   
-        pubmsg.linear.x = velocity/10
-        pubmsg.angular.z = steering/10
+        pubmsg.linear.x = velocity
+        pubmsg.angular.z = steering
         publisher.publish(pubmsg)
         print('cmd : ' + str(pubmsg.linear.x) + ','+ str(pubmsg.angular.z))
         #rate.sleep()
